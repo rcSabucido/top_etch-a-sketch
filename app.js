@@ -24,9 +24,12 @@ function createMouseListener() {
     let rgbGrid = document.querySelectorAll(".grid");
 
     rgbGrid.forEach((grid) => {
+        let opacityNumber = 0;
+        let color = getRandomColor();
         grid.addEventListener("mouseover", () => {
-            let color = getRandomColor();
             grid.style.backgroundColor = color;
+            opacityNumber += .10;
+            grid.style.opacity = String(opacityNumber);
         })
     })
 }
