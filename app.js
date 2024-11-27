@@ -11,8 +11,6 @@ function createCanvas(dim) {
     }
 }
 
-document.addEventListener("load", createCanvas(256));
-
 function createMouseListener() {
     let rgbGrid = document.querySelectorAll(".grid");
 
@@ -34,18 +32,23 @@ function changeGridSize(dim) {
 
 addBtn.addEventListener("click", () => {
     let userInput = prompt("Please enter the dimension:");
-    let newDimension = userInput * userInput;
+    if (userInput > 100) {
+        alert("Entered dimension is too large, please try again!");
+    } else {
+        let newDimension = userInput * userInput;
 
-    let rgbGrid = document.querySelectorAll(".grid");
-    rgbGrid.forEach((grid) => {
-        grid.remove();
-    })
-
-    createCanvas(newDimension);
-    changeGridSize(userInput);
-    createMouseListener();
+        let rgbGrid = document.querySelectorAll(".grid");
+        rgbGrid.forEach((grid) => {
+            grid.remove();
+        })
+    
+        createCanvas(newDimension);
+        changeGridSize(userInput);
+        createMouseListener();
+    }
 });
 
+createCanvas(256);
 createMouseListener();
 
 // divContainer / given grid = dimension of the grid
