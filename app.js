@@ -8,31 +8,48 @@ function createCanvas(dim) {
         gridDiv.className = "grid"
     
         gridContainer.appendChild(gridDiv);
-        gridDiv.classList.add("colorGrid");
     }
 }
 
-document.addEventListener("load", createCanvas(256));
+function createMouseListener() {
+    let rgbGrid = document.querySelectorAll(".grid");
 
-let rgbGrid = document.querySelectorAll(".colorGrid");
-
-rgbGrid.forEach((grid) => {
-    grid.addEventListener("mouseover", () => {
-        grid.style.backgroundColor = "red";
+    rgbGrid.forEach((grid) => {
+        grid.addEventListener("mouseover", () => {
+            grid.style.backgroundColor = "red";
+        })
     })
-})
+}
 
+function changeGridSize(dim) {
+    let rgbGrid = document.querySelectorAll(".grid");
+    let size = String((640 / dim));
+    rgbGrid.forEach((grid) => {
+        grid.style.width = size.concat("px");
+        grid.style.height = size.concat("px");
+    });
+}
 
 addBtn.addEventListener("click", () => {
     let userInput = prompt("Please enter the dimension:");
-    let newDimension = userInput * userInput;
+    if (userInput > 100) {
+        alert("Entered dimension is too large, please try again!");
+    } else {
+        let newDimension = userInput * userInput;
 
-    rgbGrid.forEach((grid) => {
-        grid.remove();
-    })
-
-    createCanvas(newDimension);
+        let rgbGrid = document.querySelectorAll(".grid");
+        rgbGrid.forEach((grid) => {
+            grid.remove();
+        })
+    
+        createCanvas(newDimension);
+        changeGridSize(userInput);
+        createMouseListener();
+    }
 });
+
+createCanvas(256);
+createMouseListener();
 
 // divContainer / given grid = dimension of the grid
 // 300 x 300px container / 3x3 grid = 100px 
