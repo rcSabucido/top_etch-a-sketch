@@ -6,17 +6,27 @@ function createCanvas(dim) {
     for (let i = 0; i < dim; i++) {
         let gridDiv = document.createElement("div");
         gridDiv.className = "grid"
-    
+
         gridContainer.appendChild(gridDiv);
     }
 }
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  
 function createMouseListener() {
     let rgbGrid = document.querySelectorAll(".grid");
 
     rgbGrid.forEach((grid) => {
         grid.addEventListener("mouseover", () => {
-            grid.style.backgroundColor = "red";
+            let color = getRandomColor();
+            grid.style.backgroundColor = color;
         })
     })
 }
